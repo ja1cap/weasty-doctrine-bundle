@@ -9,6 +9,8 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/framework-bundle": "~2.2",
+        "symfony/form": "~2.2",
+        "symfony/doctrine-bridge": "~2.2",
         "twig/extensions": "~1.0",
         "weasty/resource": "dev-master",
         "doctrine/orm": "~2.2,>=2.2.3",
