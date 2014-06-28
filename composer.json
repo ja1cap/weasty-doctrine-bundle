@@ -1,0 +1,20 @@
+{
+    "name": "weasty/doctrine-bundle",
+    "type": "symfony-bundle",
+    "description": "Weasty Doctrine Bundle",
+    "license": "MIT",
+    "authors": [
+        {"name": "ja1cap", "email": "ja1cap@me.com"}
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "~2.2",
+        "twig/extensions": "~1.0",
+        "weasty/resource": "dev-master",
+        "doctrine/orm": "~2.2,>=2.2.3",
+        "weasty/doctrine": "dev-master"
+    },
+    "autoload": {
+        "psr-4": { "Weasty\\Bundle\\DoctrineBundle\\": "src/Weasty/Bundle/DoctrineBundle" }
+    }
+}

@@ -1,0 +1,7 @@
+{% block weasty_doctrine_hidden_type_widget %}
+    {% set hidden_value = (value and value.value is defined ? value.value : null) %}
+    {% set name = (value ? value : null) %}
+    {{ form_widget(form, {'type':'hidden', 'value':hidden_value}) }}
+    {{ name }}
+    {#@TODO add text type form element#}
+{% endblock %}
