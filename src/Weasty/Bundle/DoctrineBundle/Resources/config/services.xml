@@ -6,7 +6,7 @@
 
 
     <parameters>
-        <parameter key="weasty_doctrine.twig.collection_extension.class">Weasty\Bundle\DoctrineBundle\Twig\CollectionExtension</parameter>
+        <parameter key="weasty_doctrine.twig.collection_extension.class">Weasty\Doctrine\Twig\CollectionExtension</parameter>
     </parameters>
 
     <services>
