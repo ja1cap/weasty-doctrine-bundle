@@ -30,6 +30,7 @@ class EntityType extends DoctrineType {
 
         $resolver
             ->setDefaults(array(
+                'map_as_id' => false,
                 'class' => $this->getEntityClass(),
             ))
         ;
@@ -42,10 +43,17 @@ class EntityType extends DoctrineType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         parent::buildForm($builder, $options);
-        $builder
-            ->addModelTransformer(new IdToEntityTransformer($this->registry->getManager(), $options['class']))
-        ;
+
+        if($options['map_as_id']){
+
+            $builder
+                ->addModelTransformer(new IdToEntityTransformer($this->registry->getManager(), $options['class']))
+            ;
+
+        }
+
     }
 
     /**
