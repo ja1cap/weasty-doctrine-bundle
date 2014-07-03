@@ -4,8 +4,10 @@ namespace Weasty\Bundle\DoctrineBundle\Form\Type;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\DoctrineType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Weasty\Bundle\DoctrineBundle\Form\ChoiceList\EntityLoader;
+use Weasty\Bundle\DoctrineBundle\Form\DataTransformer\IdToEntityTransformer;
 
 /**
  * Class EntityType
@@ -32,6 +34,18 @@ class EntityType extends DoctrineType {
             ))
         ;
 
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        parent::buildForm($builder, $options);
+        $builder
+            ->addModelTransformer(new IdToEntityTransformer($this->registry->getManager(), $options['class']))
+        ;
     }
 
     /**

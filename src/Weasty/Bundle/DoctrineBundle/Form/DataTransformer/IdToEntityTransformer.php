@@ -7,10 +7,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 use Weasty\Doctrine\Entity\EntityInterface;
 
 /**
- * Class EntityToIdTransformer
+ * Class IdToEntityTransformer
  * @package Weasty\Bundle\DoctrineBundle\Form\DataTransformer
  */
-class EntityToIdTransformer implements DataTransformerInterface {
+class IdToEntityTransformer implements DataTransformerInterface {
 
     /**
      * @var \Doctrine\Common\Persistence\ObjectRepository
@@ -58,27 +58,37 @@ class EntityToIdTransformer implements DataTransformerInterface {
 
         if(is_array($value)){
 
-            $ids = array_map(function($value){
+            $ids = array();
+            $entities = array();
 
-                if($value instanceof EntityInterface){
-                    return $value->getId();
+            foreach($value as $i => $val){
+                if($val instanceof EntityInterface){
+                    $entities[] = $val;
+                    unset($value[$i]);
                 } else {
-                    return (string)$value;
+                    $ids[] = (string)$val;
                 }
+            }
 
-            }, $value);
+            $entities += $this->repository->findBy(array(
+                'id' => $ids,
+            ));
 
-            return $ids;
+            return $entities;
 
         } else {
 
             if($value instanceof EntityInterface){
-                $id = $value->getId();
-            } else {
-                $id = (string)$value;
-            }
 
-            return $id;
+                return $value;
+
+            } else {
+
+                return $this->repository->findOneBy(array(
+                    'id' => (string)$value,
+                ));
+
+            }
 
         }
 
@@ -114,20 +124,26 @@ class EntityToIdTransformer implements DataTransformerInterface {
         if(is_array($value)){
 
             $ids = array_map(function($value){
-                return (string)$value;
+
+                if($value instanceof EntityInterface){
+                    return $value->getId();
+                } else {
+                    return (string)$value;
+                }
+
             }, $value);
 
-            return $this->repository->findBy(array(
-                'id' => $ids,
-            ));
+            return $ids;
 
         } else {
 
-            $id = (string)$value;
+            if($value instanceof EntityInterface){
+                $id = $value->getId();
+            } else {
+                $id = (string)$value;
+            }
 
-            return $this->repository->findOneBy(array(
-                'id' => $id,
-            ));
+            return $id;
 
         }
 
