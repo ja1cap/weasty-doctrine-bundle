@@ -61,7 +61,7 @@ class EntityToChoiceTransformer implements DataTransformerInterface {
         } elseif(!$value){
             return null;
         } else {
-            throw new TransformationFailedException('$value must be instance of \Weasty\Bundle\DoctrineBundle\Entity\AbstractEntity', 500);
+            throw new TransformationFailedException('$value must be instance of AbstractEntity', 500);
         }
     }
 
