@@ -1,6 +1,7 @@
 <?php
 namespace Weasty\Bundle\DoctrineBundle\Form\DataTransformer;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -56,7 +57,7 @@ class IdToEntityTransformer implements DataTransformerInterface {
     public function transform($value)
     {
 
-        if(is_array($value)){
+        if(is_array($value) || $value instanceof Collection){
 
             $ids = array();
             $entities = array();
@@ -121,17 +122,19 @@ class IdToEntityTransformer implements DataTransformerInterface {
     public function reverseTransform($value)
     {
 
-        if(is_array($value)){
+        if(is_array($value) || $value instanceof Collection){
 
-            $ids = array_map(function($value){
+            $ids = array();
 
-                if($value instanceof EntityInterface){
-                    return $value->getId();
+            foreach($value as $val){
+
+                if($val instanceof EntityInterface){
+                    $ids[] = $val->getId();
                 } else {
-                    return (string)$value;
+                    $ids[] = (string)$val;
                 }
 
-            }, $value);
+            }
 
             return $ids;
 
