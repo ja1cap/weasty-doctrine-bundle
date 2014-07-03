@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Weasty\Bundle\DoctrineBundle\Form\DataTransformer\EntityToChoiceTransformer;
+use Weasty\Bundle\DoctrineBundle\Form\DataTransformer\IdToEntityTransformer;
 
 /**
  * Class HiddenType
@@ -16,14 +17,14 @@ class HiddenType extends AbstractType {
     /**
      * @var ManagerRegistry
      */
-    protected $managerRegistry;
+    protected $registry;
 
     /**
      * @param ManagerRegistry $managerRegistry
      */
     function __construct(ManagerRegistry $managerRegistry)
     {
-        $this->managerRegistry = $managerRegistry;
+        $this->registry = $managerRegistry;
     }
 
     /**
@@ -33,6 +34,7 @@ class HiddenType extends AbstractType {
     {
 
         $resolver->setDefaults(array(
+            'map_as_id' => false,
             // hidden fields cannot have a required attribute
             'required'       => false,
             // Pass errors to the parent
@@ -53,10 +55,20 @@ class HiddenType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->addViewTransformer(new EntityToChoiceTransformer(
-            $this->managerRegistry->getManagerForClass($options['class']),
-            $options['class']
-        ), true);
+        $builder
+            ->addViewTransformer(new EntityToChoiceTransformer(
+                $this->registry->getManagerForClass($options['class']),
+                $options['class']
+            ), true)
+        ;
+
+        if($options['map_as_id']){
+
+            $builder
+                ->addModelTransformer(new IdToEntityTransformer($this->registry->getManagerForClass($options['class']), $options['class']))
+            ;
+
+        }
 
     }
 
