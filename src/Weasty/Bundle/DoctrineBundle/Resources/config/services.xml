@@ -13,12 +13,12 @@
 
     <services>
         <service id="weasty_doctrine.entity.serializer" class="%weasty_doctrine.entity.serializer.class%">
-            <argument type="service">doctrine.orm.entity_manager</argument>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
         <service id="weasty_doctrine.cache.collection.manager" class="%weasty_doctrine.cache.collection.manager.class%">
-            <argument type="service">doctrine.orm.entity_manager</argument>
-            <argument type="service">weasty_doctrine.entity.serializer</argument>
-            <argument type="service">doctrine.orm.default_result_cache</argument>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="weasty_doctrine.entity.serializer"/>
+            <argument type="service" id="doctrine.orm.default_result_cache"/>
         </service>
         <service id="weasty_doctrine.twig.collection_extension" class="%weasty_doctrine.twig.collection_extension.class%">
             <tag name="twig.extension"/>
