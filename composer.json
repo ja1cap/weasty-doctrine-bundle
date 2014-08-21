@@ -14,7 +14,8 @@
         "twig/extensions": "~1.0",
         "weasty/resource": "dev-master",
         "doctrine/orm": "~2.2,>=2.2.3",
-        "weasty/doctrine": "dev-master"
+        "weasty/doctrine": "dev-master",
+        "weasty/doctrine-cache-collection": "dev-master"
     },
     "autoload": {
         "psr-4": { "Weasty\\Bundle\\DoctrineBundle\\": "src/Weasty/Bundle/DoctrineBundle" }

@@ -6,10 +6,20 @@
 
 
     <parameters>
+        <parameter key="weasty_doctrine.entity.serializer.class">Weasty\Doctrine\EntitySerializer</parameter>
+        <parameter key="weasty_doctrine.cache.collection.manager.class">Weasty\Doctrine\Cache\Collection\CacheCollectionManager</parameter>
         <parameter key="weasty_doctrine.twig.collection_extension.class">Weasty\Doctrine\Twig\CollectionExtension</parameter>
     </parameters>
 
     <services>
+        <service id="weasty_doctrine.entity.serializer" class="%weasty_doctrine.entity.serializer.class%">
+            <argument type="service">doctrine.orm.entity_manager</argument>
+        </service>
+        <service id="weasty_doctrine.cache.collection.manager" class="%weasty_doctrine.cache.collection.manager.class%">
+            <argument type="service">doctrine.orm.entity_manager</argument>
+            <argument type="service">weasty_doctrine.entity.serializer</argument>
+            <argument type="service">doctrine.orm.default_result_cache</argument>
+        </service>
         <service id="weasty_doctrine.twig.collection_extension" class="%weasty_doctrine.twig.collection_extension.class%">
             <tag name="twig.extension"/>
         </service>
