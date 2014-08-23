@@ -13,7 +13,7 @@
 
     <services>
         <service id="weasty_doctrine.entity.serializer" class="%weasty_doctrine.entity.serializer.class%">
-            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="doctrine"/>
         </service>
         <service id="weasty_doctrine.cache.collection.manager" class="%weasty_doctrine.cache.collection.manager.class%">
             <argument type="service" id="doctrine.orm.entity_manager"/>
