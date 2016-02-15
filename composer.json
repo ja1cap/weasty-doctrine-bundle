@@ -12,10 +12,10 @@
         "symfony/form": "~2.2",
         "symfony/doctrine-bridge": "~2.2",
         "twig/extensions": "~1.0",
-        "weasty/resource": "dev-master",
+        "weasty/resource": ">=v1.0",
         "doctrine/orm": "~2.2,>=2.2.3",
-        "weasty/doctrine": "dev-master",
-        "weasty/doctrine-cache-collection": "dev-master"
+        "weasty/doctrine": ">=v1.0",
+        "weasty/doctrine-cache-collection": ">=v1.0"
     },
     "autoload": {
         "psr-4": { "Weasty\\Bundle\\DoctrineBundle\\": "src/Weasty/Bundle/DoctrineBundle" }
